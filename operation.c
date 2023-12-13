@@ -1,4 +1,5 @@
 #include "monty.h"
+char *data;
 /**
  * push - .
  * @stack: .
@@ -10,7 +11,7 @@ void push(stack_t **stack, unsigned int line_number)
 	stack_t *new_node = malloc(sizeof(stack_t));
 	int is_num, number;
 
-	is_num = is_int(value);
+	is_num = is_int(data);
 	if ((!is_num))
 	{
 		free_list(&new_node);
@@ -23,7 +24,7 @@ void push(stack_t **stack, unsigned int line_number)
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-	number = atoi(value);
+	number = atoi(data);
 	new_node->n = number;
 	new_node->prev = NULL;
 	if (*stack == NULL)
@@ -51,24 +52,6 @@ void pall(stack_t **stack, unsigned int line_number __attribute__((unused)))
 		fprintf(stdout, "%d\n", current->n);
 		current = current->next;
 	}
-}
-/**
- * free_list - .
- * @stack: .
- * Return: .
-*/
-void free_list(stack_t **stack)
-{
-	stack_t *curr = *stack;
-	stack_t *free_me;
-
-	while (curr != NULL)
-	{
-		free_me = curr;
-		curr = curr->next;
-		free(free_me);
-	}
-	*stack = NULL;
 }
 /**
  * pint - .
@@ -112,4 +95,45 @@ void pop(stack_t **stack, unsigned int line_number)
 	((*stack)->next)->prev = NULL;
 	*stack = (temp)->next;
 	free(temp);
+}
+/**
+ * free_list - .
+ * @stack: .
+ * Return: .
+*/
+void free_list(stack_t **stack)
+{
+	stack_t *curr = *stack;
+	stack_t *free_me;
+
+	while (curr != NULL)
+	{
+		free_me = curr;
+		curr = curr->next;
+		free(free_me);
+	}
+	*stack = NULL;
+}
+/**
+ * is_int - .
+ * @value: .
+ * Return: .
+*/
+
+int is_int(char *value)
+{
+	char *ptr = value;
+
+	if (value == NULL)
+		return (0);
+	if (*ptr == '-')
+		ptr++;
+	while (*ptr != '\0')
+	{
+		if (*ptr >= '0' && *ptr <= '9')
+			ptr++;
+		else
+			return (0);
+	}
+	return (1);
 }

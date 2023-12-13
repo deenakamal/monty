@@ -1,13 +1,14 @@
 #ifndef MONTY_H
 #define MONTY_H
+
+#define _POSIX_C_SOURCE 200809L
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdbool.h>
 #include <string.h>
-#define TOK_DELIM " \t\r\n\a\""
-extern char *value;
 
+extern char *data;
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -19,11 +20,10 @@ extern char *value;
  */
 typedef struct stack_s
 {
-	int n;
-	struct stack_s *prev;
-	struct stack_s *next;
+        int n;
+        struct stack_s *prev;
+        struct stack_s *next;
 } stack_t;
-
 
 /**
  * struct instruction_s - opcode and its function
@@ -35,35 +35,22 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-	char *opcode;
-	void (*f)(stack_t **stack, unsigned int line_number);
+        char *opcode;
+        void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-char *handle_new_line(char *line);
-int is_opcode(char *line, instruction_t opcode[]);
-char **generate_argv(char *line);
+void process_instructions(FILE *file);
+int get_opcode_index(char *line, instruction_t opcode[]);
+void handle_opcode(
+                char *line_dub, instruction_t *opcode, stack_t **stack, unsigned int line_);
+
+char *parse_line(char *line);
+
 void push(stack_t **stack, unsigned int line_number);
-void pall(stack_t **stack, unsigned int line_number);
+void pall(stack_t **stack, unsigned int line_number __attribute__((unused)));
 void pint(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);
-void swap(stack_t **stack, unsigned int line_number);
-void add(stack_t **stack, unsigned int line_number);
-void pchar(stack_t **stack, unsigned int line_number);
-void nop(stack_t **stack, unsigned int line_number);
-void sub(stack_t **stack, unsigned int line_number);
-void div1(stack_t **stack, unsigned int line_number);
-void mul(stack_t **stack, unsigned int line_number);
-void mod(stack_t **stack, unsigned int line_number);
-void pstr(stack_t **stack, unsigned int line_number);
-void rotl(stack_t **stack, unsigned int line_number);
-void rotr(stack_t **stack, unsigned int line_number);
-stack_t *add_dnodeint_end(stack_t **head, int n);
-
 int is_int(char *value);
 void free_list(stack_t **stack);
-/***/
-void error_argc(void);
-void error_file(const char *file);
-void error_instruction(int count, char *line_copy, char *line);
 
 #endif
