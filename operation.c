@@ -1,9 +1,9 @@
 #include "monty.h"
 /**
- * push - .
- * @stack: .
- * @line_number: .
- * Return: .
+ * _push - to add elements in list
+ * @stack: head stack
+ * @line_number: command number
+ * Return: void
 */
 void _push(stack_t **stack, unsigned int line_number)
 {
@@ -13,7 +13,7 @@ void _push(stack_t **stack, unsigned int line_number)
 
 	data = strtok(NULL, " \t\r\n\a\"");
 	is_valid = check_input(data);
-	
+
 	if ((!is_valid))
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
@@ -39,7 +39,7 @@ void _push(stack_t **stack, unsigned int line_number)
 	*stack = new_node;
 }
 /**
- * pall - print elements in stack
+ * _pall - print elements in stack
  * @stack: head stack
  * @line_number: line number of command
  * Return: void
