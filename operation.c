@@ -9,7 +9,9 @@ void push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new_node = malloc(sizeof(stack_t));
 	int is_num, number;
+	char *data;
 
+	data = strtok(NULL, " \t\r\n\a\"");
 	is_num = is_int(data);
 	if ((!is_num))
 	{
@@ -53,49 +55,6 @@ void pall(stack_t **stack, unsigned int line_number __attribute__((unused)))
 	}
 }
 /**
- * pint - .
- * @stack: .
- * @line_number: .
- * Return: .
-*/
-void pint(stack_t **stack, unsigned int line_number)
-{
-	if (!(*stack))
-	{
-		free_list(stack);
-		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
-		exit(EXIT_FAILURE);
-	}
-	fprintf(stdout, "%d\n", (*stack)->n);
-}
-
-/**
- * pop - .
- * @stack: .
- * @line_number: .
- * Return: .
-*/
-void pop(stack_t **stack, unsigned int line_number)
-{
-	stack_t *temp;
-
-	if (!(*stack))
-	{
-		free_list(stack);
-		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
-		exit(EXIT_FAILURE);
-	}
-	if ((*stack)->next == NULL)
-	{
-		free_list(stack);
-		return;
-	}
-	temp = *stack;
-	((*stack)->next)->prev = NULL;
-	*stack = (temp)->next;
-	free(temp);
-}
-/**
  * free_list - .
  * @stack: .
  * Return: .
@@ -114,16 +73,16 @@ void free_list(stack_t **stack)
 	*stack = NULL;
 }
 /**
- * is_int - .
- * @value: .
+ * is_int - convert and check if data from 0 to 9
+ * @data: .
  * Return: .
 */
 
-int is_int(char *value)
+int is_int(char *data)
 {
-	char *ptr = value;
+	char *ptr = data;
 
-	if (value == NULL)
+	if (data == NULL)
 		return (0);
 	if (*ptr == '-')
 		ptr++;

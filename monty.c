@@ -1,14 +1,14 @@
 #include "monty.h"
-char *data;
 /**
- * main: entry point for program
+ * main - entry point for program
  * @ac: number of argments
  * @av: array of arguments
- * Return:
+ * Return: 0 on success
  */
 int main(int ac, char const *av[])
 {
 	FILE *file;
+
 
 	if (ac != 2)
 	{
@@ -26,7 +26,7 @@ int main(int ac, char const *av[])
 
 	process_instructions(file);
 	/*fclose(file);*/
-	return 0;
+	return (0);
 }
 /**
  * process_instructions - read from file
@@ -55,7 +55,7 @@ void process_instructions(FILE *file)
 			continue;
 
 		instruction = strtok(line_dub, " \t\r\n\a\"");
-		data = strtok(NULL, " \t\r\n\a\"");
+		/*data = strtok(NULL, " \t\r\n\a\"");*/
 
 		index = check_opcode(instruction, opcode);
 		if (index >= 0)
