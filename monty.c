@@ -1,4 +1,5 @@
 #include "monty.h"
+char *data;
 /**
  * main: entry point for program
  * @ac: number of argments
@@ -24,7 +25,7 @@ int main(int ac, char const *av[])
 	}
 
 	process_instructions(file);
-	fclose(file);
+	/*fclose(file);*/
 	return 0;
 }
 /**
@@ -37,6 +38,7 @@ void process_instructions(FILE *file)
 	size_t len = 0;
 	ssize_t read;
 	unsigned int number_line = 0;
+	int index = 0;
 
 	stack_t *stack = NULL;
 	instruction_t opcode[] = {{"push", push}, {"pall", pall}};
@@ -48,14 +50,25 @@ void process_instructions(FILE *file)
 		if (read == -1)
 			break;
 		line_dub = parse_line(line);
+
 		if (strcmp(line_dub, "\n") == 0 || line_dub[0] == '#')
 			continue;
+
 		instruction = strtok(line_dub, " \t\r\n\a\"");
-		if (instruction == NULL)
-			continue;
-		handle_opcode(line_dub, opcode, &stack, number_line);
-		free(line_dub);
+		data = strtok(NULL, " \t\r\n\a\"");
+
+		index = check_opcode(instruction, opcode);
+		if (index >= 0)
+			opcode[index].f(&stack, number_line);
+		else
+		{
+			free_list(&stack);
+			fprintf(stderr, "L%d: unknown instruction %s\n", number_line, line_dub);
+			free(line);
+			exit(EXIT_FAILURE);
+		}
 	}
 	free(line);
 	free_list(&stack);
+	fclose(file);
 }

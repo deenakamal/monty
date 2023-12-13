@@ -40,7 +40,7 @@ typedef struct instruction_s
 } instruction_t;
 
 void process_instructions(FILE *file);
-int get_opcode_index(char *line, instruction_t opcode[]);
+int check_opcode(char *line, instruction_t opcode[]);
 void handle_opcode(
                 char *line_dub, instruction_t *opcode, stack_t **stack, unsigned int line_);
 

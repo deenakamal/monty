@@ -1,5 +1,4 @@
 #include "monty.h"
-char *data;
 /**
  * handle_opcode - handle
  * @line_dub: line
@@ -7,7 +6,7 @@ char *data;
  * @stack: head pointer
  * @line_: line number
  */
-void handle_opcode(
+/*void handle_opcode(
 		char *line_dub, instruction_t *opcode, stack_t **stack, unsigned int line_)
 {
 	 int idx;
@@ -24,14 +23,14 @@ void handle_opcode(
 		 free(line_dub);
 		 exit(EXIT_FAILURE);
 	 }
-}
+}*/
 /**
  * get_opcode_index - get opcode by index
  * @line: .
  * @opcode: .
  * Return: .
  */
-int get_opcode_index(char *line, instruction_t opcode[])
+int check_opcode(char *line, instruction_t opcode[])
 {
 	int i;
 
