@@ -54,6 +54,5 @@ void free_list(stack_t **stack);
 void _pchar(stack_t **stack, unsigned int line_number);
 void _swap(stack_t **stack, unsigned int line_number);
 void _add(stack_t **stack, unsigned int line_number);
-void _nop(stack_t **stack __attribute__((unused)),
-unsigned int line_number __attribute__((unused)));
+void _nop(stack_t **stack, unsigned int line_number);
 #endif

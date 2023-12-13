@@ -27,13 +27,11 @@ void _pop(stack_t **stack, unsigned int line_number)
 
 	if (*stack == NULL)
 	{
-		free_list(stack);
 		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	if ((*stack)->next == NULL)
 	{
-		free_list(stack);
 		return;
 	}
 	temp = *stack;
@@ -42,10 +40,10 @@ void _pop(stack_t **stack, unsigned int line_number)
 	free(temp);
 }
 /**
- * swap - .
- * @stack: .
- * @line_number: .
- * Return: .
+ * _swap - swap two elemet in top
+ * @stack: head stack
+ * @line_number: command line
+ * Return: void
 */
 void _swap(stack_t **stack, unsigned int line_number)
 {
@@ -62,38 +60,36 @@ void _swap(stack_t **stack, unsigned int line_number)
 	(*stack)->next->n = num;
 }
 /**
- * add - .
- * @stack: .
- * @line_number: .
- * Return: .
+ * _add - add two elements
+ * @stack: head stack
+ * @line_number: command number
+ * Return: void
 */
 void _add(stack_t **stack, unsigned int line_number)
 {
-	int num;
-	stack_t *temp;
+	int d;
+	stack_t *tmp;
 
 	if (!(*stack) || !((*stack)->next))
 	{
-		free_list(stack);
 		fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	temp = *stack;
-	num = (*stack)->n;
-	(*stack)->next->n += num;
+	tmp = *stack;
+	d = (*stack)->n;
+	(*stack)->next->n += d;
 	(*stack)->next->prev = NULL;
-	free(temp);
+	free(tmp);
 	*stack = (*stack)->next;
 }
 /**
- * nop - .
- * @stack: .
- * @line_number: .
- * Return: .
+ * _nop - nothing
+ * @stack: head
+ * @line_number: line number
 */
-void _nop(stack_t **stack __attribute__((unused)),
-unsigned int line_number __attribute__((unused)))
+void _nop(stack_t **stack, unsigned int line_number)
 {
+	(void)stack;
+	(void)line_number;
 
 }
-
