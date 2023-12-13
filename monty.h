@@ -49,7 +49,7 @@ void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number __attribute__((unused)));
 void pint(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);
-int is_int(char *value);
+int check_input(char *value);
 void free_list(stack_t **stack);
 
 #endif

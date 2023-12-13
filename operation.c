@@ -8,15 +8,15 @@
 void push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new_node = malloc(sizeof(stack_t));
-	int is_num, number;
+	int is_valid, number;
 	char *data;
 
 	data = strtok(NULL, " \t\r\n\a\"");
-	is_num = is_int(data);
-	if ((!is_num))
+	is_valid = check_input(data);
+	if ((!is_valid))
 	{
-		free_list(&new_node);
-		free_list(stack);
+		/*free_list(&new_node);*/
+		/*free_list(stack);*/
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
@@ -26,8 +26,10 @@ void push(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 	number = atoi(data);
+
 	new_node->n = number;
 	new_node->prev = NULL;
+
 	if (*stack == NULL)
 		new_node->next = NULL;
 	else
@@ -73,23 +75,23 @@ void free_list(stack_t **stack)
 	*stack = NULL;
 }
 /**
- * is_int - convert and check if data from 0 to 9
- * @data: .
- * Return: .
+ * check_input - convert and check if data from 0 to 9
+ * @data: input data to check
+ * Return: return 1 is valid 0 otherwisw
 */
 
-int is_int(char *data)
+int check_input(char *data)
 {
-	char *ptr = data;
+	char *p = data;
 
 	if (data == NULL)
 		return (0);
-	if (*ptr == '-')
-		ptr++;
-	while (*ptr != '\0')
+	if (*p == '-')
+		p++;
+	while (*p != '\0')
 	{
-		if (*ptr >= '0' && *ptr <= '9')
-			ptr++;
+		if (*p >= '0' && *p <= '9')
+			p++;
 		else
 			return (0);
 	}
