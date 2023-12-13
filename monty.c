@@ -41,7 +41,9 @@ void process_instructions(FILE *file)
 	int index = 0;
 
 	stack_t *stack = NULL;
-	instruction_t opcode[] = {{"push", _push}, {"pall", _pall}};
+	instruction_t opcode[] = {{"push", _push}, {"pall", _pall}, {"pint", _pint},
+	{"pop", _pop}, {"swap", _swap}, {"add", _add}, {"nop", _nop},
+	{"pchar", _pchar}};
 
 	while (1)
 	{
