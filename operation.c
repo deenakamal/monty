@@ -5,7 +5,7 @@
  * @line_number: .
  * Return: .
 */
-void push(stack_t **stack, unsigned int line_number)
+void _push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new_node = malloc(sizeof(stack_t));
 	int is_valid, number;
@@ -13,10 +13,9 @@ void push(stack_t **stack, unsigned int line_number)
 
 	data = strtok(NULL, " \t\r\n\a\"");
 	is_valid = check_input(data);
+	
 	if ((!is_valid))
 	{
-		/*free_list(&new_node);*/
-		/*free_list(stack);*/
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
@@ -40,12 +39,12 @@ void push(stack_t **stack, unsigned int line_number)
 	*stack = new_node;
 }
 /**
- * pall - .
- * @stack: .
- * @line_number: .
- * Return: .
+ * pall - print elements in stack
+ * @stack: head stack
+ * @line_number: line number of command
+ * Return: void
 */
-void pall(stack_t **stack, unsigned int line_number __attribute__((unused)))
+void _pall(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
 	stack_t *current;
 
@@ -57,20 +56,20 @@ void pall(stack_t **stack, unsigned int line_number __attribute__((unused)))
 	}
 }
 /**
- * free_list - .
- * @stack: .
- * Return: .
+ * free_list - free stack
+ * @stack: head
+ * Return: void
 */
 void free_list(stack_t **stack)
 {
-	stack_t *curr = *stack;
-	stack_t *free_me;
+	stack_t *head = *stack;
+	stack_t *tmp_me;
 
-	while (curr != NULL)
+	while (head != NULL)
 	{
-		free_me = curr;
-		curr = curr->next;
-		free(free_me);
+		tmp_me = head;
+		head = head->next;
+		free(tmp_me);
 	}
 	*stack = NULL;
 }

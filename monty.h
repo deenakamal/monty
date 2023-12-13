@@ -45,10 +45,10 @@ void process_instructions(FILE *file);
 int check_opcode(char *line, instruction_t opcode[]);
 char *parse_line(char *line);
 
-void push(stack_t **stack, unsigned int line_number);
-void pall(stack_t **stack, unsigned int line_number __attribute__((unused)));
-void pint(stack_t **stack, unsigned int line_number);
-void pop(stack_t **stack, unsigned int line_number);
+void _push(stack_t **stack, unsigned int line_number);
+void _pall(stack_t **stack, __attribute__((unused)) unsigned int line_number);
+void _pint(stack_t **stack, unsigned int line_number);
+void _pop(stack_t **stack, unsigned int line_number);
 int check_input(char *value);
 void free_list(stack_t **stack);
 

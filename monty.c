@@ -41,7 +41,7 @@ void process_instructions(FILE *file)
 	int index = 0;
 
 	stack_t *stack = NULL;
-	instruction_t opcode[] = {{"push", push}, {"pall", pall}};
+	instruction_t opcode[] = {{"push", _push}, {"pall", _pall}};
 
 	while (1)
 	{
@@ -62,9 +62,7 @@ void process_instructions(FILE *file)
 			opcode[index].f(&stack, number_line);
 		else
 		{
-			free_list(&stack);
 			fprintf(stderr, "L%d: unknown instruction %s\n", number_line, line_dub);
-			free(line);
 			exit(EXIT_FAILURE);
 		}
 	}
