@@ -1,5 +1,4 @@
 #include "monty.h"
-char *data;
 /**
  * push - .
  * @stack: .
@@ -14,8 +13,8 @@ void push(stack_t **stack, unsigned int line_number)
 	is_num = is_int(data);
 	if ((!is_num))
 	{
-		/*free_list(&new_node);*/
-		/*free_list(stack);*/
+		free_list(&new_node);
+		free_list(stack);
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
