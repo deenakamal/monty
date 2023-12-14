@@ -16,6 +16,8 @@ void _push(stack_t **stack, unsigned int line_number)
 
 	if ((!is_valid))
 	{
+		free_list(&new_node);
+		free_list(stack);
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
