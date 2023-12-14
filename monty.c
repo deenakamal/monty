@@ -1,5 +1,5 @@
 #include "monty.h"
-char *data;
+
 /**
  * main - entry point for program
  * @ac: number of argments
@@ -43,7 +43,6 @@ void process_instructions(FILE *file, stack_t **stack)
 	unsigned int number_line = 0;
 	int index = 0;
 
-	/*stack_t *stack = NULL;*/
 	instruction_t opcode[] = {{"push", _push}, {"pall", _pall}, {"pint", _pint},
 	{"pop", _pop}, {"swap", _swap}, {"add", _add}, {"nop", _nop},
 	{"pchar", _pchar}};
@@ -60,7 +59,6 @@ void process_instructions(FILE *file, stack_t **stack)
 			continue;
 
 		instruction = strtok(line_dub, " \t\r\n\a\"");
-		data = strtok(NULL, " \t\r\n\a\"");
 
 		index = check_opcode(instruction, opcode);
 		if (index >= 0)
