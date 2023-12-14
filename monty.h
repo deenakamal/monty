@@ -41,7 +41,7 @@ char *opcode;
 void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-void process_instructions(FILE *file);
+void process_instructions(FILE *file, stack_t **stack);
 int check_opcode(char *line, instruction_t opcode[]);
 char *parse_line(char *line);
 

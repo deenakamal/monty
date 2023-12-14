@@ -9,9 +9,9 @@ void _push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new_node = malloc(sizeof(stack_t));
 	int is_valid, number;
-	char *data;
+	/*char *data;*/
 
-	data = strtok(NULL, " \t\r\n\a\"");
+	/*data = strtok(NULL, " \t\r\n\a\"");*/
 	is_valid = check_input(data);
 
 	if ((!is_valid))

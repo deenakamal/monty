@@ -1,4 +1,5 @@
 #include "monty.h"
+char *data;
 /**
  * main - entry point for program
  * @ac: number of argments
@@ -9,6 +10,7 @@ int main(int ac, char const *av[])
 {
 	FILE *file;
 
+	stack_t *stack = NULL;
 
 	if (ac != 2)
 	{
@@ -24,15 +26,16 @@ int main(int ac, char const *av[])
 		exit(EXIT_FAILURE);
 	}
 
-	process_instructions(file);
+	process_instructions(file, &stack);
 	/*fclose(file);*/
 	return (0);
 }
 /**
  * process_instructions - read from file
  * @file: file
+ * @stack: head
  */
-void process_instructions(FILE *file)
+void process_instructions(FILE *file, stack_t **stack)
 {
 	char *line = NULL, *line_dub, *instruction;
 	size_t len = 0;
@@ -40,7 +43,7 @@ void process_instructions(FILE *file)
 	unsigned int number_line = 0;
 	int index = 0;
 
-	stack_t *stack = NULL;
+	/*stack_t *stack = NULL;*/
 	instruction_t opcode[] = {{"push", _push}, {"pall", _pall}, {"pint", _pint},
 	{"pop", _pop}, {"swap", _swap}, {"add", _add}, {"nop", _nop},
 	{"pchar", _pchar}};
@@ -57,11 +60,11 @@ void process_instructions(FILE *file)
 			continue;
 
 		instruction = strtok(line_dub, " \t\r\n\a\"");
-		/*data = strtok(NULL, " \t\r\n\a\"");*/
+		data = strtok(NULL, " \t\r\n\a\"");
 
 		index = check_opcode(instruction, opcode);
 		if (index >= 0)
-			opcode[index].f(&stack, number_line);
+			opcode[index].f(stack, number_line);
 		else
 		{
 			fprintf(stderr, "L%d: unknown instruction %s\n", number_line, line_dub);
@@ -69,6 +72,6 @@ void process_instructions(FILE *file)
 		}
 	}
 	free(line);
-	free_list(&stack);
+	free_list(stack);
 	fclose(file);
 }
