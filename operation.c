@@ -63,13 +63,13 @@ void _pall(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 void free_list(stack_t **stack)
 {
 	stack_t *head = *stack;
-	stack_t *tmp_me;
+	stack_t *tmp;
 
 	while (head != NULL)
 	{
-		tmp_me = head;
+		tmp = head;
 		head = head->next;
-		free(tmp_me);
+		free(tmp);
 	}
 	*stack = NULL;
 }
