@@ -23,16 +23,23 @@ int check_opcode(char *line, instruction_t opcode[])
 */
 char *parse_line(char *line)
 {
-	int len;
+	int length, i = 0;
 
-	while (*line && *line == ' ')
+	while (line[i])
 	{
-		line++;
+		if (line[i] != ' ')
+		{
+			line += i;
+			break;
+		}
+		i++;
 	}
-	len = strlen(line);
-	if (len > 0 && line[len - 1] == '\n')
-	{
-		line[len - 1] = '\0';
-	}
+	length = (int)strlen(line);
+	if (length == 1 && line[0] == '\n')
+		return (line);
+
+	length = (int)strlen(line);
+	if (line[length - 1] == '\n')
+		line[length - 1] = '\0';
 	return (line);
 }
